@@ -1,5 +1,13 @@
 {{ define "main"}}
 <div id="archive">
+  
+  {{ if .Data.Singular }}
+  <h3 style="margin-bottom:0">Filtering for "{{ .Title }}"</h3>
+    <small>
+        <a href="{{ "blog" | relURL }}">Remove filter</a>
+    </small>
+  {{ end }}
+  
   <ul class="post-list">
 
   {{ $pages := .Paginator.Pages }}
@@ -26,5 +34,15 @@
   {{ if eq .Site.Params.showAllPostsArchive false }}
     {{ partial "pagination.html" . }}
   {{ end }}
+  {{ if .Data.Singular }}
+  {{else}}
+    <small>
+      <div>
+        {{ range .Site.Taxonomies.tags }}
+        <a href="{{ .Page.Permalink }}">#{{ .Page.Title }}</a>&nbsp;
+        {{ end }}
+      </div>
+    </small>
+    {{ end }}
 </div>
 {{ end }}

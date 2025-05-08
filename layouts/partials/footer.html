@@ -1,14 +1,29 @@
 <footer id="footer">
-  <div class="footer-left">
-    Copyright  &copy; {{ now.Format "2006" }} {{ if .Site.Copyright }} {{ print .Site.Copyright | markdownify }} {{ else }} {{ print .Site.Title }} {{ end }}
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        {{ range .Site.Menus.main }} 
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-        {{ end }}
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <div class="footer-left">
+      <!--Copyright  &copy; {{ now.Format "2006" }} {{ if .Site.Copyright }} {{ print .Site.Copyright | markdownify }} {{ else }} {{ print .Site.Title }} {{ end }}-->
+      <div class="social-icons">
+          {{ range .Site.Params.social }}
+            {{ $icon := .name }}
+            {{ $url := .link }}
+            {{ if eq .name "email" }}
+              {{ $url = printf "mailto:%s" .link }}
+            {{ end }}
+            
+            <a href="{{ $url | safeURL }}" target="_blank" aria-label="{{ .name }}">
+              <i class="{{ if eq .name "email" }}fas fa-envelope{{ else if eq .name "rss" }}fas fa-{{ .name }}{{ else }}fab fa-{{ .name }}{{ end }}"></i>
+            </a>
+          {{ end }}
+        </div>
+    </div>
+    <div class="footer-right">
+      Copyright  &copy; {{ now.Format "2006" }} {{ if .Site.Copyright }} {{ print .Site.Copyright | markdownify }} {{ else }} {{ print .Site.Title }} {{ end }}
+      <!--<nav>
+        <ul>
+          {{ range .Site.Menus.main }} 
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </nav>-->
+    </div>
+  </footer>
+  

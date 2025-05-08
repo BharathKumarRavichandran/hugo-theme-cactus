@@ -1,4 +1,7 @@
 {{ define "main" }}
+{{ if .Site.Params.showCustomHome }}
+  {{ .Content }}
+{{ else }}
   <section id="about">
   {{ if isset .Site.Params "description" }}
     {{ .Site.Params.description | $.Page.RenderString }}
@@ -108,4 +111,5 @@
     </ul>
   </section>
   {{ end }}
+{{ end }}
 {{ end }}
